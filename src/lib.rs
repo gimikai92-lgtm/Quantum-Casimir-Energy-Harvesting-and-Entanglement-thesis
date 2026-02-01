@@ -113,6 +113,21 @@ impl QuantumSystem {
         let t2 = self.t2_times[qubit];
         (-(t) / t2).exp()
     }
+
+    /// Derive the ratio of coherence between two times using the stored T2 for `qubit`.
+    /// Returns exp(-(t2 - t1) / T2)
+    pub fn coherence_ratio(&self, qubit: usize, t1: f64, t2: f64) -> f64 {
+        let c1 = self.coherence_at_time(qubit, t1);
+        let c2 = self.coherence_at_time(qubit, t2);
+        c2 / c1
+    }
+
+    /// Return purity of a GHZ state created on the system.
+    pub fn purity_of_ghz(&self) -> f64 {
+        let mut tmp = self.clone();
+        let _ = tmp.create_ghz_state();
+        tmp.calculate_purity()
+    }
 }
 
 // Re-export types at crate root
@@ -124,15 +139,33 @@ mod python_bindings {
     use super::QuantumSystem;
     use pyo3::prelude::*;
 
+    /// Return coherence at time t for a newly created system with `n_qubits` at `temperature`.
     #[pyfunction]
     fn coherence_at_time_py(n_qubits: usize, temperature: f64, qubit: usize, t: f64) -> PyResult<f64> {
         let sys = QuantumSystem::new(n_qubits, temperature);
         Ok(sys.coherence_at_time(qubit, t))
     }
 
+    /// Return coherence ratio between two times t1 and t2 using the T2 for `qubit`.
+    /// Equivalent to exp(-(t2 - t1) / T2).
+    #[pyfunction]
+    fn coherence_ratio_py(n_qubits: usize, temperature: f64, qubit: usize, t1: f64, t2: f64) -> PyResult<f64> {
+        let sys = QuantumSystem::new(n_qubits, temperature);
+        Ok(sys.coherence_ratio(qubit, t1, t2))
+    }
+
+    /// Create a GHZ on a fresh system and return its purity (should be ~1.0).
+    #[pyfunction]
+    fn purity_of_ghz_py(n_qubits: usize, temperature: f64) -> PyResult<f64> {
+        let sys = QuantumSystem::new(n_qubits, temperature);
+        Ok(sys.purity_of_ghz())
+    }
+
     #[pymodule]
     fn quantum_coherence(_py: Python, m: &PyModule) -> PyResult<()> {
         m.add_function(wrap_pyfunction!(coherence_at_time_py, m)?)?;
+        m.add_function(wrap_pyfunction!(coherence_ratio_py, m)?)?;
+        m.add_function(wrap_pyfunction!(purity_of_ghz_py, m)?)?;
         Ok(())
     }
 }

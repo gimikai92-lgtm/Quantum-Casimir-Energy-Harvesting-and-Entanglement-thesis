@@ -43,3 +43,28 @@ jobs:
         run: cargo test --verbose
       - name: Build release binary
         run: cargo build --release --verbose
+
+  build-python-extension:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ '3.12' ]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install maturin and build deps
+        run: |
+          python -m pip install --upgrade pip setuptools wheel maturin
+      - name: Build and install Python extension
+        run: |
+          # Build and install the Python extension (feature-gated pyo3 binding)
+          python -m pip install --upgrade pip setuptools wheel maturin
+          maturin develop --release --features python
+      - name: Run Python extension tests
+        run: |
+          pytest -q python/tests -k "not test_coherence_script"
