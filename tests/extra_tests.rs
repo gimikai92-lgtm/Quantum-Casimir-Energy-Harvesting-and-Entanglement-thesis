@@ -42,3 +42,16 @@ fn test_t2_t1_coherence_decay() {
     let tol = 1e-12;
     assert!((ratio - expected_ratio).abs() < tol, "ratio {} != expected {}", ratio, expected_ratio);
 }
+
+#[test]
+fn test_coherence_at_time_method_matches_formula() {
+    let system = QuantumSystem::new(3, 0.01);
+    let t = 7.5;
+    let qubit = 1;
+    let t2 = system.t2_times[qubit];
+
+    let expected = (-(t) / t2).exp();
+    let got = system.coherence_at_time(qubit, t);
+    let tol = 1e-12;
+    assert!((got - expected).abs() < tol, "got {} expected {}", got, expected);
+}

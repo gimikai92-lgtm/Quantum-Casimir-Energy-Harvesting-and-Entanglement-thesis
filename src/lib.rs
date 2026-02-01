@@ -104,7 +104,35 @@ impl QuantumSystem {
         self.density_matrix = rho;
         Ok(())
     }
+
+    /// Simple T2 coherence model: coherence(t) = exp(-t / T2)
+    pub fn coherence_at_time(&self, qubit: usize, t: f64) -> f64 {
+        if qubit >= self.t2_times.len() {
+            panic!("qubit index out of range");
+        }
+        let t2 = self.t2_times[qubit];
+        (-(t) / t2).exp()
+    }
 }
 
 // Re-export types at crate root
 // types are already public; no additional re-exports needed
+
+// Optional Python bindings (enabled via `--features python`)
+#[cfg(feature = "python")]
+mod python_bindings {
+    use super::QuantumSystem;
+    use pyo3::prelude::*;
+
+    #[pyfunction]
+    fn coherence_at_time_py(n_qubits: usize, temperature: f64, qubit: usize, t: f64) -> PyResult<f64> {
+        let sys = QuantumSystem::new(n_qubits, temperature);
+        Ok(sys.coherence_at_time(qubit, t))
+    }
+
+    #[pymodule]
+    fn quantum_coherence(_py: Python, m: &PyModule) -> PyResult<()> {
+        m.add_function(wrap_pyfunction!(coherence_at_time_py, m)?)?;
+        Ok(())
+    }
+}
