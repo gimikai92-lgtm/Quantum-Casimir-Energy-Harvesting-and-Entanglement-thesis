@@ -5,8 +5,14 @@ use quantum_coherence::{
 
 #[test]
 fn test_physical_constants_positive() {
-    assert!(HBAR > 0.0);
-    assert!(K_B > 0.0);
+    // Use const block to verify at compile-time (clippy: assertions_on_constants)
+    const _: () = {
+        assert!(HBAR > 0.0);
+        assert!(K_B > 0.0);
+    };
+    // Runtime assertion kept for coverage
+    assert!(HBAR.is_finite());
+    assert!(K_B.is_finite());
 }
 
 #[test]
