@@ -15,7 +15,9 @@ import traceback
 # Try to import the Rust module
 try:
     import quantum_coherence
-    RUST_AVAILABLE = True
+    # Check if the Rust module exposes the full QuantumSystem class
+    # (our minimal binding only exposes helper functions, not the class)
+    RUST_AVAILABLE = hasattr(quantum_coherence, 'QuantumSystem')
 except ImportError:
     print("Warning: Rust module not found. Using mock implementation.", file=sys.stderr)
     RUST_AVAILABLE = False

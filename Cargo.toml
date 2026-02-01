@@ -9,7 +9,7 @@ license = "MIT"
 [lib]
 name = "quantum_coherence"
 path = "src/lib.rs"
-crate-type = ["cdylib"]
+crate-type = ["cdylib", "rlib"]
 
 [[bin]]
 name = "coherence-test"
