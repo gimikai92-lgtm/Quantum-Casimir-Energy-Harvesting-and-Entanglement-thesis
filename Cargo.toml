@@ -1,0 +1,27 @@
+[package]
+name = "quantum-coherence-test"
+version = "0.1.0"
+edition = "2021"
+authors = ["Maintainer <maintainer@example.com>"]
+description = "Minimal quantum coherence crate for tests"
+license = "MIT"
+
+[lib]
+name = "quantum_coherence"
+path = "src/lib.rs"
+
+[[bin]]
+name = "coherence-test"
+path = "src/bin/main.rs"
+
+[dependencies]
+nalgebra = "0.32"
+num-complex = "0.4"
+anyhow = "1.0"
+dotenvy = "0.15"
+
+[dev-dependencies]
+pretty_assertions = "1.3"
+assert_cmd = "2.0"
+predicates = "2.1"
+
