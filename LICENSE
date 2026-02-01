@@ -1,0 +1,268 @@
+DUAL LICENSING AGREEMENT
+Author-Protective License Model
+
+Copyright (c) 2026 Rolando M Garcia
+All rights reserved.
+
+================================================================================
+SECTION 1: SOFTWARE CODE LICENSE (Academic Use)
+================================================================================
+
+The code in the /code/ directory is licensed under the GNU Affero General Public
+License v3.0 (AGPL-3.0) for educational and research purposes.
+
+GNU AGPL-3.0 Requirements:
+- Attribution: Must credit Rolando M Garcia
+- Source disclosure: Derivative works must disclose source code
+- Network use: Access to modified code via network requires source disclosure
+- Copyleft: Modifications must use same license
+- Patent grants: Includes explicit patent protection
+- Liability: No warranty provided
+
+Commercial Use of Code:
+- Requires explicit written permission from Rolando M Garcia
+- Commercial licensing available upon negotiation
+- Contact: [author.email@institution.edu]
+
+For full AGPL-3.0 terms: https://www.gnu.org/licenses/agpl-3.0.html
+
+================================================================================
+SECTION 2: THESIS CONTENT LICENSE (Author-Protective)
+================================================================================
+
+The thesis content, including all chapters, appendices, experimental data,
+figures, tables, and research findings, is licensed under Creative Commons
+Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0).
+
+THESIS CONTENT INCLUDES:
+  ✓ All chapters (01-10)
+  ✓ Abstract and cover page
+  ✓ All appendices (A-E)
+  ✓ All tables, figures, equations
+  ✓ All experimental data and results
+  ✓ All derivations and analysis
+
+You are permitted to:
+  ✓ View and read the thesis
+  ✓ Share the complete, unmodified thesis
+  ✓ Download for personal study/research
+  ✓ Use for educational purposes with attribution
+
+You are NOT permitted to:
+  ✗ Create derivative works or adaptations
+  ✗ Modify any content
+  ✗ Use for commercial purposes
+  ✗ Publish portions without explicit permission
+  ✗ Republish with different attribution
+  ✗ Extract and repackage content
+
+STRICT REQUIREMENTS:
+  • You MUST provide proper attribution to Rolando M Garcia
+  • You MUST indicate if you've accessed modified versions
+  • You MUST link to original source
+  • You MUST preserve all copyright notices
+  • You MUST preserve the complete license notice
+
+For full CC BY-NC-ND 4.0 terms: https://creativecommons.org/licenses/by-nc-nd/4.0/
+
+================================================================================
+SECTION 3: DATA & MEASUREMENTS LICENSE
+================================================================================
+
+All experimental data and measurements are licensed under CC BY-NC 4.0
+(Attribution-NonCommercial 4.0 International).
+
+Permitted Uses:
+  ✓ Academic research and analysis
+  ✓ Non-commercial studies
+  ✓ Educational institutions
+  ✓ Peer review
+  ✓ Reproduction of results (non-commercial)
+
+Prohibited Uses:
+  ✗ Commercial applications
+  ✗ For-profit publications without permission
+  ✗ Product development
+  ✗ Services sold to third parties
+
+Commercial data licensing available upon request.
+
+For full CC BY-NC 4.0 terms: https://creativecommons.org/licenses/by-nc/4.0/
+
+================================================================================
+SECTION 4: PATENT RIGHTS & INTELLECTUAL PROPERTY
+================================================================================
+
+PATENT NOTICE:
+This thesis describes novel technologies including:
+  • Quantum-Casimir Energy Harvesting (QCEH) systems
+  • Entanglement-Directed Photonic Energy Transfer (EDPET) protocols
+  • Li-N-Graphene synthesis and doping techniques
+  • Energy routing algorithms using quantum entanglement
+
+Patent applications have been filed or are pending for key inventions.
+
+RESTRICTIONS:
+  • Do not implement these technologies without explicit permission
+  • Do not file competing patent applications
+  • Do not commercialize described methods
+  • Do not reverse-engineer protected technologies
+
+Contact for patent licenses: [author.email@institution.edu]
+
+================================================================================
+SECTION 5: FIGURE AND TABLE REPRODUCTION
+================================================================================
+
+FIGURES (CC BY-NC-ND):
+  • Cannot be modified or adapted
+  • Cannot be used in commercial publications
+  • Cannot be used without attribution
+  • Cannot be used in derivative works
+
+TABLES AND DATA VISUALIZATION:
+  • Can be used for academic research (non-commercial)
+  • Must include attribution and source
+  • Cannot be used in commercial products
+
+Educational Fair Use:
+  • Academic institutions may use for teaching (non-commercial)
+  • Must provide proper attribution
+  • Cannot alter or misrepresent content
+
+================================================================================
+SECTION 6: ATTRIBUTION REQUIREMENTS
+================================================================================
+
+When using any part of this thesis, you MUST include:
+
+Format 1 (Text):
+  "Adapted from 'Quantum-Casimir Energy Harvesting and Entanglement-Directed 
+  Energy Management in Lithium-Nitrogen Co-Doped Graphene Quantum Systems' 
+  by Rolando M Garcia (2026)"
+
+Format 2 (BibTeX):
+  @phdthesis{Garcia2026,
+    author = {Garcia, Rolando M},
+    title = {Quantum-Casimir Energy Harvesting and Entanglement-Directed 
+             Energy Management in Lithium-Nitrogen Co-Doped Graphene 
+             Quantum Systems},
+    school = {[Institution Name]},
+    year = {2026}
+  }
+
+Format 3 (Full Citation):
+  Garcia, R. M. (2026). Quantum-Casimir energy harvesting and entanglement-
+  directed energy management in lithium-nitrogen co-doped graphene quantum 
+  systems. [Institution Name], Department of Quantum Physics.
+
+================================================================================
+SECTION 7: COMMERCIAL LICENSING
+================================================================================
+
+COMMERCIAL USE POLICY:
+  All commercial applications require explicit written license from the author.
+
+COMMERCIAL LICENSE INCLUDES:
+  ✓ Right to develop products/services
+  ✓ Right to publish derived research (with notification)
+  ✓ Right to modify code for commercial purposes
+  ✓ Right to sublicense code (with restrictions)
+  ✓ Patent protection guidance
+
+LICENSE DOES NOT INCLUDE:
+  ✗ Waiver of copyright
+  ✗ Removal of attribution requirement
+  ✗ Right to modify thesis without permission
+  ✗ Right to claim authorship
+
+LICENSING TERMS:
+  • Negotiable based on intended use
+  • Revenue sharing may be required
+  • Attribution always required
+  • Technology transfer agreements available
+
+Contact for commercial licensing: [author.email@institution.edu]
+
+================================================================================
+SECTION 8: DISCLAIMER & LIABILITY
+================================================================================
+
+THIS THESIS AND CODE ARE PROVIDED "AS IS":
+  • No warranty of merchantability
+  • No warranty of fitness for particular purpose
+  • No guarantee of accuracy or completeness
+  • No liability for damages from use
+
+AUTHOR LIABILITY:
+  In no event shall Rolando M Garcia be liable for:
+  • Loss of data or revenue
+  • Business interruption
+  • Indirect or consequential damages
+  • Claims from third parties
+  • Implementation failures
+
+USE AT YOUR OWN RISK
+
+================================================================================
+SECTION 9: ENFORCEMENT & TERMINATION
+================================================================================
+
+VIOLATION CONSEQUENCES:
+  • Immediate termination of all licenses
+  • Right to seek damages and injunctive relief
+  • Legal action for copyright infringement
+  • DMCA takedown notices for online violations
+
+DISPUTE RESOLUTION:
+  • First: Cease and desist notice
+  • Second: Negotiation period (30 days)
+  • Third: Legal action if unresolved
+
+DMCA COMPLIANCE:
+  Circumventing technological protection measures is prohibited.
+
+================================================================================
+SECTION 10: CONTACT & PERMISSIONS
+================================================================================
+
+For permission requests:
+  • Educational use: [author.email@institution.edu]
+  • Commercial licensing: [author.email@institution.edu]
+  • Patent licensing: [author.email@institution.edu]
+  • Derivative works: [author.email@institution.edu]
+  • Other inquiries: [author.email@institution.edu]
+
+Include in your request:
+  ✓ Specific intended use
+  ✓ Organization/institution
+  ✓ Timeline
+  ✓ Expected scope/impact
+  ✓ Contact information
+
+Response time: 5-10 business days
+
+================================================================================
+SECTION 11: SUMMARY OF RESTRICTIONS BY USE TYPE
+================================================================================
+
+Use Type              | Code    | Thesis  | Data    | Commercial
+----------------------|---------|---------|---------|----------
+Academic Research    | ✓ AGPL  | ✓ CC-BNC-ND | ✓ CC-NC | ✗ Permission needed
+Educational Use      | ✓ AGPL  | ✓ CC-BNC-ND | ✓ CC-NC | ✗ Permission needed
+Personal Study       | ✓ AGPL  | ✓ CC-BNC-ND | ✓ CC-NC | ✗ Permission needed
+Commercial Product   | ✗ License | ✗ License | ✗ License | ✓ with agreement
+Publishing           | ✗ License | ✗ Modify  | ✓ cite | ✗ without permission
+Patents/IP Develop   | ✗ License | ✗ License | ✗ License | ✗ License needed
+For-Profit Org       | ✗ License | ✗ License | ✗ License | ✗ License needed
+
+✓ = Permitted    ✗ = Prohibited/Requires Permission
+
+================================================================================
+
+EFFECTIVE DATE: February 1, 2026
+LAST UPDATED: February 1, 2026
+
+This license supersedes any previous licensing terms.
+All license grants are non-exclusive and non-transferable.
+Copyright © 2026 Rolando M Garcia. All rights reserved.

@@ -1,0 +1,45 @@
+cff-version: 1.2.0
+title: >-
+  Quantum-Casimir Energy Harvesting and Entanglement-Directed 
+  Energy Management in Lithium-Nitrogen Co-Doped Graphene Quantum Systems
+message: >-
+  If you use this thesis in your research, please cite it using 
+  the metadata from this file.
+type: thesis
+authors:
+  - family-names: "Garcia"
+    given-names: "Rolando M"
+    affiliation: "Department of Quantum Physics"
+    orcid: "https://orcid.org/XXXX-XXXX-XXXX-XXXX"
+date-released: 2026-02-01
+version: 1.0.0
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.XXXXXXXXX"
+  - type: url
+    value: "https://github.com/gimikai92-lgtm/Quantum-Casimir-Energy-Harvesting-and-Entanglement-thesis"
+repository-code: "https://github.com/gimikai92-lgtm/Quantum-Casimir-Energy-Harvesting-and-Entanglement-thesis"
+repository-artifact: "https://zenodo.org/records/XXXXXXXXX"
+keywords:
+  - "Quantum Thermodynamics"
+  - "Casimir Effect"
+  - "Entanglement"
+  - "Graphene Doping"
+  - "Energy Harvesting"
+  - "Quantum Computing"
+  - "Vacuum Energy"
+  - "Self-Powered Systems"
+license: "CC-BY-4.0"
+preferred-citation:
+  type: thesis
+  authors:
+    - family-names: "Garcia"
+      given-names: "Rolando M"
+  title: >-
+    Quantum-Casimir Energy Harvesting and Entanglement-Directed 
+    Energy Management in Lithium-Nitrogen Co-Doped Graphene Quantum Systems
+  school: "[Institution Name]"
+  department: "Department of Quantum Physics"
+  year: 2026
+  month: 2
+  date-released: 2026-02-01

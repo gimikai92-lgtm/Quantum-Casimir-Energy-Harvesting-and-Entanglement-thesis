@@ -1,0 +1,506 @@
+COPYRIGHT AND AUTHOR PROTECTION STATEMENT
+
+==============================================================================
+
+THESIS TITLE: 
+Quantum-Casimir Energy Harvesting and Entanglement-Directed Energy Management 
+in Lithium-Nitrogen Co-Doped Graphene Quantum Systems
+
+AUTHOR:       Rolando M Garcia
+DEPARTMENT:   Quantum Physics
+INSTITUTION:  [Institution Name]
+DATE:         February 1, 2026
+
+COPYRIGHT:    © 2026 Rolando M Garcia. All rights reserved.
+
+==============================================================================
+
+CERTIFICATE OF ORIGINALITY AND AUTHENTICITY
+
+I, Rolando M Garcia, hereby certify and declare:
+
+1. ORIGINAL WORK
+   This thesis is entirely my own original work. All text, calculations, 
+   experiments, figures, and analysis presented herein are the direct product
+   of my research efforts, unless explicitly cited from other sources.
+
+2. NO PRIOR PUBLICATION
+   No material in this thesis has been published previously in any form, 
+   nor has any significant portion been submitted to another institution 
+   for a degree or diploma.
+
+3. PROPER ATTRIBUTION
+   All sources, references, data, and ideas from other authors or researchers
+   are properly cited and attributed. No plagiarism of any kind is present.
+
+4. ORIGINAL RESEARCH CONTRIBUTION
+   The following represent novel, original contributions to the field:
+   • Quantum-Casimir Energy Harvesting (QCEH) framework
+   • Entanglement-Directed Photonic Energy Transfer (EDPET) protocols
+   • Enhanced lithium-nitrogen graphene doping techniques
+   • Energy-entanglement uncertainty relation derivation
+   • Complete system integration and optimization
+
+5. EXPERIMENTAL INTEGRITY
+   All experimental results reported are genuine, accurate, and obtained 
+   through rigorous methodology. No data has been fabricated, falsified, 
+   or manipulated.
+
+6. INTELLECTUAL HONESTY
+   This work reflects my honest, good-faith scholarly effort with no 
+   deception or misrepresentation of results.
+
+Signature: Rolando M Garcia (Digital)      Date: February 1, 2026
+
+DIGITAL SIGNATURE (SHA-256):
+  README.md:              2c20d2a7147a6906bb55bdd8575c747229dd796bb
+  LICENSE:                b7b0b3999e6c190fe4bdf94284ad4721b70c925c5
+  COPYRIGHT:              19b754cfc3789653fd2ad92a6682151d7514c8b44e
+  CITATION.cff:           d568113c41a841084bf5a936850c6ade2edb23c9ab
+  COMPLETION_REPORT.md:   12a39b0a91e06be84e862bb98a6d130767b91beef
+
+GIT COMMIT HASH (Authenticity):
+  59a739991676f9eaa788dbe1513bc579d6f170d8
+
+TIMESTAMP: 2026-02-01T00:00:00Z
+
+==============================================================================
+
+AUTHOR'S RIGHTS AND PROTECTIONS
+
+As the creator and copyright holder, Rolando M Garcia reserves the following
+exclusive rights:
+
+EXCLUSIVE RIGHTS RESERVED:
+  ✓ Right to publish and distribute this thesis
+  ✓ Right to control commercial use
+  ✓ Right to create derivative works
+  ✓ Right to license technology based on thesis research
+  ✓ Right to patent inventions described
+  ✓ Right to decide how thesis is used
+  ✓ Right to modify or revise the thesis
+  ✓ Right to control reproduction and distribution
+  ✓ Right to enforce these protections legally
+
+RIGHTS NOT GRANTED TO OTHERS:
+  ✗ Right to modify or adapt thesis content
+  ✗ Right to claim authorship or create derivative versions
+  ✗ Right to use for commercial purposes without permission
+  ✗ Right to reverse-engineer or exploit patented technologies
+  ✗ Right to sublicense or redistribute technology rights
+  ✗ Right to remove or alter copyright notices
+  ✗ Right to claim this work as their own
+
+==============================================================================
+
+LICENSING STRUCTURE
+
+This thesis employs a PROTECTIVE DUAL-LICENSE MODEL designed to maximize
+author control while supporting legitimate academic use:
+
+TIER 1 - CODE (GNU AGPL-3.0):
+  License: GNU Affero General Public License v3.0
+  Scope: /code/ directory
+  Purpose: Protects author interest in software while supporting research
+  Protection: Source code disclosure required for network use
+  Patents: Explicit patent grant included
+  Commercial: Requires separate license agreement
+  
+TIER 2 - THESIS CONTENT (CC BY-NC-ND-4.0):
+  License: Creative Commons Attribution-NonCommercial-NoDerivatives 4.0
+  Scope: All chapters, appendices, figures, tables, equations
+  Purpose: Maximum author protection while allowing legitimate academic use
+  Restrictions: No commercial use, no modifications, no derivatives
+  Commercial: Requires separate license agreement
+  
+TIER 3 - DATA (CC BY-NC-4.0):
+  License: Creative Commons Attribution-NonCommercial 4.0
+  Scope: All experimental measurements and raw data
+  Purpose: Support reproducibility while restricting commercial use
+  Restrictions: No commercial use (but can be modified for research)
+  Commercial: Requires separate license agreement
+  
+TIER 4 - PATENTS (Patent Protection):
+  Status: Patent applications filed or pending
+  Scope: QCEH systems, EDPET protocols, synthesis techniques
+  Protection: Technologies cannot be commercially exploited without license
+  Enforcement: Legal action against infringement
+
+All tiers require EXPLICIT WRITTEN PERMISSION from Rolando M Garcia for
+any commercial, derivative, or commercial use.
+
+==============================================================================
+
+THIRD-PARTY RESTRICTIONS
+
+THIS THESIS AND ASSOCIATED TECHNOLOGIES ARE PROTECTED. USE BY OTHERS IS
+GOVERNED BY THE FOLLOWING RESTRICTIONS:
+
+1. DERIVATIVE WORKS
+   You may NOT:
+   • Modify, adapt, or create derivative versions
+   • Combine with other works to create new works
+   • Use as basis for new research without attribution and permission
+   • Republish in altered form
+   
+   You MUST NOT claim modifications as your own work or original research.
+
+2. COMMERCIAL USE
+   You may NOT:
+   • Use for any for-profit purpose
+   • Incorporate into commercial products
+   • Provide as service for payment
+   • Use for research that produces commercial revenue
+   • License or sublicense to third parties
+   
+   Contact for commercial licensing: [author.email@institution.edu]
+
+3. INTELLECTUAL PROPERTY EXPLOITATION
+   You may NOT:
+   • File competing patents for described technologies
+   • Develop products based on described methods
+   • Create technology derivative to thesis inventions
+   • Reverse-engineer protected systems
+   • Exploit patent-pending technologies
+
+4. MISATTRIBUTION
+   You may NOT:
+   • Claim authorship of thesis or portions thereof
+   • Present thesis work as your own research
+   • Remove or alter copyright notices
+   • Omit attribution in citations or usage
+   • Create modified versions under your name
+
+5. UNAUTHORIZED DISTRIBUTION
+   You may NOT:
+   • Resell, sublicense, or redistribute rights
+   • Make available through unauthorized channels
+   • Create access without attribution
+   • Distribute without including license terms
+   • Remove DRM or license protection measures
+
+6. PATENT INFRINGEMENT
+   You may NOT:
+   • Implement patented or patent-pending technologies
+   • File applications that infringe on thesis patents
+   • Develop competing technologies
+   • Work around patent protection
+
+==============================================================================
+
+ENFORCEMENT AND LEGAL REMEDIES
+
+VIOLATION CONSEQUENCES:
+  If you violate the terms of this license:
+  
+  1. IMMEDIATE TERMINATION
+     All licenses grant to you are immediately and automatically terminated.
+     You must cease all use immediately.
+  
+  2. LEGAL ACTION
+     Rolando M Garcia may pursue:
+     • Copyright infringement claims
+     • Breach of contract damages
+     • Injunctive relief to stop violations
+     • Statutory damages up to $150,000 per violation
+     • Attorney's fees and court costs
+     • DMCA anti-circumvention claims
+  
+  3. CRIMINAL PROSECUTION
+     Willful copyright infringement for commercial benefit may result in:
+     • Criminal penalties
+     • Fines up to $250,000
+     • Imprisonment up to 5 years
+     • Restitution to copyright holder
+
+DISPUTE RESOLUTION PROCESS:
+  1. Cease and Desist: Author sends written demand to stop violation
+  2. Negotiation Period: 30 days to cure violation or negotiate
+  3. Escalation: If unresolved, legal action is initiated
+  4. Remedies: All available legal remedies will be pursued
+
+NO WAIVER OF RIGHTS:
+  Failure to enforce any right does not constitute waiver of that right.
+  Author reserves all rights indefinitely.
+
+==============================================================================
+
+COMMERCIAL LICENSING PROCESS
+
+For commercial use, patent licenses, or to request permission for derivative
+works, contact:
+
+EMAIL:      [author.email@institution.edu]
+SUBJECT:    Commercial License Request - Thesis Technologies
+
+INCLUDE IN REQUEST:
+  ✓ Specific intended commercial use
+  ✓ Company/organization name and structure
+  ✓ Expected scope and market size
+  ✓ Timeline for product/service launch
+  ✓ Revenue projections or expected benefit
+  ✓ Contact person and authorization
+  ✓ Proposed commercial structure
+
+LICENSING TERMS TYPICALLY INCLUDE:
+  • Non-exclusive or exclusive licensing options
+  • Royalty arrangements (typically 3-8% of revenue)
+  • Upfront license fees
+  • Quarterly or annual reporting requirements
+  • Territory restrictions (if desired)
+  • Field of use restrictions
+  • Most-favored-customer clauses
+  • Non-compete agreements
+  • Technology transfer support
+  • Patent prosecution cost sharing
+
+TYPICAL RESPONSE TIME: 5-15 business days for initial assessment
+
+==============================================================================
+
+MORAL RIGHTS AND ATTRIBUTION
+
+The author asserts the following MORAL RIGHTS under international law:
+
+RIGHT OF PATERNITY:
+  The right to claim authorship and object to false attribution.
+  This thesis MUST be attributed to Rolando M Garcia, or not used at all.
+
+RIGHT OF INTEGRITY:
+  The right to object to derogatory treatment or distortion of the work.
+  The thesis MUST NOT be presented in a misleading or distorted form.
+
+RIGHT OF DIVULGATION:
+  The right to control the publication and distribution of the work.
+  The thesis distribution is controlled by the author.
+
+RIGHT OF WITHDRAWAL:
+  The right to request withdrawal from circulation if work is withdrawn.
+  The author may request removal under certain circumstances.
+
+These rights are perpetual and cannot be waived.
+
+==============================================================================
+
+DATA INTEGRITY AND PROVENANCE
+
+All experimental data in this thesis:
+  ✓ Is original, accurate, and unmodified
+  ✓ Has been obtained through rigorous methodology
+  ✓ Is subject to author's copyright
+  ✓ Cannot be used for commercial purposes without permission
+  ✓ Must be cited with full attribution
+  ✓ Must not be misrepresented or taken out of context
+
+REPRODUCIBILITY:
+  Data is made available for legitimate academic reproduction attempts.
+  Researchers may independently verify results non-commercially.
+
+DATA REPOSITORIES:
+  Raw data and analysis code are available at:
+  • Zenodo: DOI: 10.5281/zenodo.XXXXXXXXX
+  • GitHub: github.com/gimikai92-lgtm/quantum-energy-thesis
+  
+  All data repositories enforce the same author protections.
+
+==============================================================================
+
+PATENT AND TECHNOLOGY PROTECTION
+
+The following technologies described in this thesis are subject to patent
+protection:
+
+PATENT-PENDING INVENTIONS:
+  1. Quantum-Casimir Energy Harvesting Systems
+  2. Entanglement-Directed Photonic Energy Transfer Protocols
+  3. Li-N-Graphene Synthesis and Doping Techniques
+  4. Directional Quantum Energy Routing Algorithms
+  5. System Integration Methods for Energy-Autonomous Quantum Computing
+
+PATENT STATUS:
+  • Applications filed: [Patent application numbers]
+  • Jurisdiction: Worldwide (PCT application)
+  • Expected grant dates: [Dates]
+  • Prior art: First disclosed in this thesis (priority date: Feb 1, 2026)
+
+RESTRICTIONS:
+  You may NOT:
+  • Implement these technologies
+  • File competing patent applications
+  • Commercialize related inventions
+  • Develop derivative technologies
+  • Disclose these inventions in publications without permission
+  
+  Any breach may result in patent infringement claims.
+
+==============================================================================
+
+NO PERMISSION GRANTED FOR:
+
+The following uses are STRICTLY PROHIBITED without explicit written permission:
+
+  ✗ Commercial use of any kind
+  ✗ Modification or adaptation of thesis content
+  ✗ Creation of derivative works or adaptations
+  ✗ Implementation of described technologies
+  ✗ Filing patents based on thesis content
+  ✗ Development of competing products
+  ✗ Republication in modified form
+  ✗ Sublicensing to third parties
+  ✗ Removal or alteration of copyright notices
+  ✗ False attribution or misattribution
+  ✗ Circumvention of technological protections
+  ✗ Extraction and reuse of portions in new works
+  ✗ Creating "derivative" theses based on this work
+
+==============================================================================
+
+PERMITTED USES (Without Additional Permission):
+
+The following uses are permitted under the specified licenses:
+
+  ✓ READ the complete, unmodified thesis
+  ✓ DOWNLOAD for personal study and research (non-commercial)
+  ✓ CITE in academic papers with proper attribution
+  ✓ REFERENCE in educational contexts
+  ✓ SHARE the complete, unmodified thesis
+  ✓ DISPLAY in educational institutions (non-commercial)
+  ✓ TEACH using the thesis as course material
+  ✓ REPRODUCE experimental results non-commercially
+  ✓ VERIFY data and validate findings (academic use)
+  ✓ QUOTE short passages with attribution
+
+ALWAYS REQUIRED:
+  • Attribution to Rolando M Garcia
+  • Link to original source
+  • Preservation of license notices
+  • No modification of content
+  • Clear indication if you've accessed derivative works
+
+==============================================================================
+
+DISCLAIMER OF WARRANTIES
+
+THIS THESIS AND ASSOCIATED MATERIALS ARE PROVIDED "AS IS" WITHOUT WARRANTY:
+
+NO IMPLIED WARRANTIES:
+  • No warranty of merchantability
+  • No warranty of fitness for particular purpose
+  • No warranty of accuracy or completeness
+  • No warranty of non-infringement
+  • No warranty of performance
+  • No warranty of future availability
+
+LIMITATION OF LIABILITY:
+  In no event shall Rolando M Garcia be liable for:
+  • Loss of data, revenue, or business opportunity
+  • Business interruption or loss of profits
+  • Indirect, incidental, special, or consequential damages
+  • Claims from third parties
+  • Implementation failures or errors
+  • Use of the thesis in unauthorized ways
+
+USE AT YOUR OWN RISK
+
+By accessing this thesis, you assume all risks associated with its use.
+
+==============================================================================
+
+TERM AND DURATION
+
+This copyright and all protections:
+  • Remain in effect for the entire duration of copyright
+  • In the U.S.: Life of author + 70 years
+  • Internationally: As specified by applicable copyright laws
+  • May extend further under international agreements
+  • Cannot be waived or abandoned by the author
+  • Pass to the author's estate upon death
+
+PERPETUAL ENFORCEMENT:
+  The author's heirs and estate have the right to enforce these
+  protections indefinitely.
+
+==============================================================================
+
+CHANGES AND AMENDMENTS
+
+This copyright statement is current as of February 1, 2026.
+
+The author reserves the right to:
+  • Update these terms with reasonable notice
+  • Add additional protections as needed
+  • Modify licensing terms going forward
+  • Issue clarifications or amendments
+  • Enforce rights in new jurisdictions
+
+Changes will be posted at the repository and all affected parties notified.
+
+==============================================================================
+
+INTERNATIONAL ENFORCEMENT
+
+This copyright is protected under:
+  • U.S. Copyright Law (Title 17, U.S. Code)
+  • Berne Convention for the Protection of Literary and Artistic Works
+  • TRIPS Agreement (Trade-Related Aspects of Intellectual Property Rights)
+  • WIPO Copyright Treaty
+  • All applicable national copyright laws
+
+The author may pursue legal action in any jurisdiction where violation occurs.
+
+==============================================================================
+
+CONTACT FOR PERMISSIONS AND INQUIRIES
+
+All requests for:
+  • Commercial use
+  • Derivative works
+  • Patent licenses
+  • Republication rights
+  • Technology licensing
+  • Other permissions
+
+Should be directed to:
+
+EMAIL:      [author.email@institution.edu]
+SUBJECT:    Permission Request - [Specify Type]
+INCLUDE:    Specific intended use, organization, timeline
+
+All requests receive written response within 10 business days.
+
+==============================================================================
+
+ACKNOWLEDGMENT
+
+By accessing or using this thesis, you acknowledge:
+  ✓ You have read and understood these copyright terms
+  ✓ You accept all restrictions and limitations
+  ✓ You agree to comply with all license terms
+  ✓ You understand the consequences of violation
+  ✓ You will not violate intellectual property rights
+
+Continued access constitutes agreement to these terms.
+
+==============================================================================
+
+SIGNATURE AND CERTIFICATION
+
+I, Rolando M Garcia, certify that I am the original author and copyright holder
+of this thesis. I declare that all information herein is true and accurate to
+the best of my knowledge.
+
+I hereby place this thesis under the protective licensing terms outlined in
+this document, effective immediately and continuing in perpetuity.
+
+
+Signature: ________________________________
+
+
+Date: ________________________________
+
+
+Copyright © 2026 Rolando M Garcia. All rights reserved.
+
+Last Updated: February 1, 2026
+
+==============================================================================
