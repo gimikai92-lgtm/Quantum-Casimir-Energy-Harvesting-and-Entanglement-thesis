@@ -33,7 +33,8 @@ def test_run_test_and_measure():
         assert fid.get('type') == 'fidelity'
         assert isinstance(fid.get('fidelity'), float)
 
-        # Stop
-        send_command(proc, {"command": "stop"})
+        # Stop - no response expected, just send command
+        proc.stdin.write(json.dumps({"command": "stop"}) + "\n")
+        proc.stdin.flush()
     finally:
         proc.kill()
