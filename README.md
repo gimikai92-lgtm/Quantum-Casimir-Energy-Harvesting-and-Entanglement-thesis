@@ -17,6 +17,25 @@ Run tests:
 cargo test
 ```
 
+Build and install Python extension (optional):
+
+```bash
+# create a virtualenv and activate it
+python -m venv .venv
+source .venv/bin/activate
+# install maturin and build/install the extension
+python -m pip install --upgrade pip setuptools wheel maturin
+maturin develop --release --features python
+# then run python tests
+python -m pytest python/tests
+
+Troubleshooting
+--------------
+- If `maturin` fails complaining about a missing virtualenv, create one with `python -m venv .venv` and activate it before running `maturin develop`.
+- On some systems `maturin` may try to generate cffi bindings or fail while parsing C macros. Installing `cffi` in the virtualenv (`pip install cffi`) or upgrading `pip`/`setuptools` usually resolves this.
+- CI will build and install the extension automatically (see `.github/workflows/ci.yml`). If you still see tests skipped locally, the extension probably isn't installed in your current interpreter; use the steps above to install it.
+```
+
 Run the example binary:
 
 ```bash
