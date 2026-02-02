@@ -197,7 +197,6 @@ coverage.xml
 dmypy.json
 
 # Rust/Cargo build artifacts
-Cargo.lock
 target/
 
 # Build artifacts
@@ -220,12 +219,12 @@ env/
 
 # GitHub workflows (CI/CD pipelines)
 .github/
-scripts/
 
-# Keep Rust source and tests (thesis-related)
+# Keep Rust source, tests, and lock file (thesis verification)
 !src/
 !tests/
 !Cargo.toml
+!Cargo.lock
 
 # Keep essential repository files
 !.gitignore
