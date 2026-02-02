@@ -237,6 +237,26 @@ impl QuantumSystem {
         Ok(())
     }
 
+    /// Calculate reduced density matrix for a single qubit
+    pub fn reduced_density_matrix(&self, qubit: usize) -> DMatrix<Complex64> {
+        let mut reduced = DMatrix::zeros(2, 2);
+        let dim = 1 << self.n_qubits;
+        let mask = !(1 << qubit);
+
+        for state1 in 0..dim {
+            for state2 in 0..dim {
+                let bit1 = ((state1 >> qubit) & 1) as usize;
+                let bit2 = ((state2 >> qubit) & 1) as usize;
+                let other1 = state1 & mask;
+                let other2 = state2 & mask;
+                if other1 == other2 {
+                    reduced[(bit1, bit2)] += self.density_matrix[(state1, state2)];
+                }
+            }
+        }
+        reduced
+    }
+
     /// Measure superposition fidelity
     pub fn measure_superposition_fidelity(&self, qubit: usize) -> Result<f64, CoherenceError> {
         if qubit >= self.n_qubits {
@@ -245,26 +265,14 @@ impl QuantumSystem {
             ));
         }
 
-        let dim = 1 << self.n_qubits;
-        let mut p0 = 0.0;
-        let mut p1 = 0.0;
+        let reduced = self.reduced_density_matrix(qubit);
+        let ideal = DMatrix::from_row_slice(2, 2, &[
+            Complex64::new(0.5, 0.0), Complex64::new(0.5, 0.0),
+            Complex64::new(0.5, 0.0), Complex64::new(0.5, 0.0),
+        ]);
 
-        for state in 0..dim {
-            let bit = (state >> qubit) & 1;
-            let prob = self.density_matrix[(state, state)].re;
-
-            if bit == 0 {
-                p0 += prob;
-            } else {
-                p1 += prob;
-            }
-        }
-
-        let ideal_p0 = 0.5;
-        let ideal_p1 = 0.5;
-        let fidelity = ((p0 * ideal_p0).sqrt() + (p1 * ideal_p1).sqrt()).powi(2);
-
-        Ok(fidelity)
+        let fidelity = (ideal * reduced).trace().re;
+        Ok(fidelity.clamp(0.0, 1.0))
     }
 
     /// Apply noise to the system

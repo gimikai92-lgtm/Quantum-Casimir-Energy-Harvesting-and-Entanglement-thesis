@@ -16,24 +16,15 @@ Run tests:
 ```bash
 cargo test
 ```
+```
 
-Build and install Python extension (optional):
+Notes on test runtime
+---------------------
+- The full Rust test suite includes doc-tests and may take up to a minute on slower machines.
+- If you only want unit + integration tests (skip doc-tests), use:
 
 ```bash
-# create a virtualenv and activate it
-python -m venv .venv
-source .venv/bin/activate
-# install maturin and build/install the extension
-python -m pip install --upgrade pip setuptools wheel maturin
-maturin develop --release --features python
-# then run python tests
-python -m pytest python/tests
-
-Troubleshooting
---------------
-- If `maturin` fails complaining about a missing virtualenv, create one with `python -m venv .venv` and activate it before running `maturin develop`.
-- On some systems `maturin` may try to generate cffi bindings or fail while parsing C macros. Installing `cffi` in the virtualenv (`pip install cffi`) or upgrading `pip`/`setuptools` usually resolves this.
-- CI will build and install the extension automatically (see `.github/workflows/ci.yml`). If you still see tests skipped locally, the extension probably isn't installed in your current interpreter; use the steps above to install it.
+cargo test --lib --tests
 ```
 
 Run the example binary:
@@ -105,9 +96,7 @@ Project structure
 - `Cargo.toml` - Rust manifest for the crate
 - `src/lib.rs` - Library code (minimal implementation)
 - `src/bin/main.rs` - Small CLI example binary
-- `tests/` - Test files (`tests/unit.rs`)
-- `python/` - Python helpers and scripts
-- `scripts/` - Helper scripts (e.g. `run_tests.sh`)
+- `tests/` - Test files (`tests/unit.rs`, `tests/integration.rs`, `tests/cli.rs`)
 - `Dockerfile`, `docker-compose.yml` - Containerization
 - `.github/workflows/ci.yml` - CI workflow
 
