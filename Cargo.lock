@@ -1169,6 +1169,7 @@ name = "quantum-coherence-test"
 version = "1.0.0"
 dependencies = [
  "anyhow",
+ "approx",
  "bincode",
  "chrono",
  "clap 4.5.56",

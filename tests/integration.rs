@@ -1,5 +1,5 @@
 //! Integration tests for quantum coherence framework
-use quantum_coherence::{QuantumSystem, NoiseModel, test_superposition_preservation};
+use quantum_coherence::{test_superposition_preservation, NoiseModel, QuantumSystem};
 use std::time::Duration;
 
 #[test]
@@ -7,7 +7,9 @@ fn test_superposition_creation() {
     let mut system = QuantumSystem::new(3, 0.02);
 
     // Create superposition on qubit 0
-    assert!(system.create_superposition(0, std::f64::consts::PI/2.0, 0.0).is_ok());
+    assert!(system
+        .create_superposition(0, std::f64::consts::PI / 2.0, 0.0)
+        .is_ok());
 
     // Measure fidelity
     let fidelity = system.measure_superposition_fidelity(0);
@@ -23,7 +25,9 @@ fn test_noise_application() {
     let mut system = QuantumSystem::new(2, 0.02);
 
     // Create superposition
-    assert!(system.create_superposition(0, std::f64::consts::PI/2.0, 0.0).is_ok());
+    assert!(system
+        .create_superposition(0, std::f64::consts::PI / 2.0, 0.0)
+        .is_ok());
 
     let initial_fidelity = system.measure_superposition_fidelity(0).unwrap();
 
@@ -81,7 +85,7 @@ fn test_results_serialization() {
 #[test]
 fn test_ghz_state() {
     let mut system = QuantumSystem::new(3, 0.02);
-    
+
     // Create GHZ state
     assert!(system.create_ghz_state().is_ok());
 
@@ -110,8 +114,8 @@ fn test_quantum_fisher_information() {
 #[test]
 fn test_temperature_dependence() {
     // Test that coherence times decrease with temperature
-    let mut system_cold = QuantumSystem::new(2, 0.01); // 10 mK
-    let mut system_warm = QuantumSystem::new(2, 0.1); // 100 mK
+    let system_cold = QuantumSystem::new(2, 0.01); // 10 mK
+    let system_warm = QuantumSystem::new(2, 0.1); // 100 mK
 
     // T2 should be longer at lower temperature
     let avg_t2_cold: f64 = system_cold.t2_times.iter().sum::<f64>() / 2.0;
@@ -153,11 +157,8 @@ fn test_performance_benchmark() {
 fn test_edge_cases() {
     // Test with 1 qubit
     let mut system_single = QuantumSystem::new(1, 0.02);
-    let results_single = test_superposition_preservation(
-        &mut system_single,
-        vec![NoiseModel::thermal(0.02)],
-        10
-    );
+    let results_single =
+        test_superposition_preservation(&mut system_single, vec![NoiseModel::thermal(0.02)], 10);
     assert!(results_single.is_ok());
 
     // Test with many qubits (but limit tests for speed)
@@ -171,11 +172,8 @@ fn test_edge_cases() {
 
     // Test with very high temperature
     let mut system_hot = QuantumSystem::new(2, 1.0); // 1 K
-    let results_hot = test_superposition_preservation(
-        &mut system_hot,
-        vec![NoiseModel::thermal(1.0)],
-        10,
-    );
+    let results_hot =
+        test_superposition_preservation(&mut system_hot, vec![NoiseModel::thermal(1.0)], 10);
     assert!(results_hot.is_ok());
 
     let results = results_hot.unwrap();

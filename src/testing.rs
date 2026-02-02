@@ -1,7 +1,7 @@
 //! Testing module for quantum coherence
-use crate::quantum::QuantumSystem;
+use crate::coherence::{CoherenceMeasurement, CoherenceTestResults, GHZMeasurement};
 use crate::noise::NoiseModel;
-use crate::coherence::{CoherenceTestResults, CoherenceMeasurement, GHZMeasurement};
+use crate::quantum::QuantumSystem;
 use anyhow::Context;
 use std::time::Instant;
 
@@ -18,15 +18,22 @@ pub fn test_superposition_preservation(
 
     // Initialize results
     let mut results = CoherenceTestResults::new(system.n_qubits);
-    
+
     // Run tests
     for test_idx in 0..num_tests {
         // Create superposition on each qubit
         for qubit in 0..system.n_qubits {
-            system.create_superposition(qubit, std::f64::consts::PI/2.0, 0.0)
+            // Reset system to ground state before each measurement
+            let dim = 1 << system.n_qubits;
+            system.density_matrix = nalgebra::DMatrix::zeros(dim, dim);
+            system.density_matrix[(0, 0)] = num_complex::Complex64::new(1.0, 0.0);
+
+            system
+                .create_superposition(qubit, std::f64::consts::PI / 2.0, 0.0)
                 .context("Failed to create superposition")?;
 
-            let initial_fidelity = system.measure_superposition_fidelity(qubit)
+            let initial_fidelity = system
+                .measure_superposition_fidelity(qubit)
                 .context("Failed to measure initial fidelity")?;
 
             // Apply noise for various durations
@@ -38,13 +45,17 @@ pub fn test_superposition_preservation(
                 let duration = (time_step as f64) * system.t2_times[qubit] / 10.0;
 
                 let mut test_system = system.clone();
-                test_system.apply_noise(duration)
+                test_system
+                    .apply_noise(duration)
                     .context("Failed to apply noise")?;
 
-                let fidelity = test_system.measure_superposition_fidelity(qubit)
+                let fidelity = test_system
+                    .measure_superposition_fidelity(qubit)
                     .context("Failed to measure fidelity after noise")?;
-                let purity = test_system.calculate_purity();
-                let entropy = test_system.calculate_entropy();
+                // Clamp fidelity to valid range [0, 1]
+                let fidelity = fidelity.clamp(0.0, 1.0);
+                let purity = test_system.calculate_purity().clamp(0.0, 1.0);
+                let entropy = test_system.calculate_entropy().max(0.0);
 
                 fidelity_over_time.push(fidelity);
                 purity_over_time.push(purity);
@@ -52,6 +63,9 @@ pub fn test_superposition_preservation(
             }
 
             let t2_estimate = fit_exponential_decay(&fidelity_over_time, system.t2_times[qubit]);
+
+            // Clamp initial fidelity as well
+            let initial_fidelity = initial_fidelity.clamp(0.0, 1.0);
 
             results.add_measurement(
                 qubit,
@@ -110,7 +124,7 @@ fn fit_exponential_decay(fidelity_data: &[f64], initial_guess: f64) -> f64 {
     }
 
     let b = (n * sum_xy - sum_x * sum_y) / (n * sum_xx - sum_x * sum_x);
-    
+
     if b < -1e-12 {
         -1.0 / b
     } else {
@@ -126,11 +140,11 @@ fn test_ghz_preservation(
 ) -> anyhow::Result<()> {
     let original_state = system.density_matrix.clone();
 
-    system.create_ghz_state()
+    system
+        .create_ghz_state()
         .context("Failed to create GHZ state")?;
 
-    let ghz_fidelity = measure_ghz_fidelity(system)
-        .context("Failed to measure GHZ fidelity")?;
+    let ghz_fidelity = measure_ghz_fidelity(system).context("Failed to measure GHZ fidelity")?;
 
     let mut fidelities = Vec::new();
 
@@ -138,7 +152,8 @@ fn test_ghz_preservation(
         let duration = (time_step as f64) * system.t2_times[0] / 5.0;
 
         let mut test_system = system.clone();
-        test_system.apply_noise(duration)
+        test_system
+            .apply_noise(duration)
             .context("Failed to apply noise to GHZ state")?;
 
         let fidelity = measure_ghz_fidelity(&test_system)
@@ -155,7 +170,7 @@ fn test_ghz_preservation(
     });
 
     system.density_matrix = original_state;
-    
+
     Ok(())
 }
 
@@ -167,9 +182,9 @@ fn measure_ghz_fidelity(system: &QuantumSystem) -> anyhow::Result<f64> {
     let amplitude = num_complex::Complex64::new(1.0 / (2.0_f64).sqrt(), 0.0);
 
     ideal_ghz[(0, 0)] = amplitude * amplitude.conj();
-    ideal_ghz[(dim-1, dim-1)] = amplitude * amplitude.conj();
-    ideal_ghz[(0, dim-1)] = amplitude * amplitude.conj();
-    ideal_ghz[(dim-1, 0)] = amplitude * amplitude.conj();
+    ideal_ghz[(dim - 1, dim - 1)] = amplitude * amplitude.conj();
+    ideal_ghz[(0, dim - 1)] = amplitude * amplitude.conj();
+    ideal_ghz[(dim - 1, 0)] = amplitude * amplitude.conj();
 
     let product = &ideal_ghz * &system.density_matrix;
     let fidelity = product.trace().re;

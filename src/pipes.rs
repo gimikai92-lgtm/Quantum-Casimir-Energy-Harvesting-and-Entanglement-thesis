@@ -1,11 +1,11 @@
 //! Python pipe communication for quantum coherence testing
+use crate::coherence::CoherenceTestResults;
+use crossbeam::channel::{unbounded, Receiver, Sender};
+use serde::{Deserialize, Serialize};
 use std::io::{self, BufRead, BufReader, Write};
 use std::process::{Child, Stdio};
 use std::sync::{Arc, Mutex};
 use std::thread;
-use crossbeam::channel::{unbounded, Sender, Receiver};
-use serde::{Serialize, Deserialize};
-use crate::coherence::CoherenceTestResults;
 
 /// Command to send to Python
 #[derive(Debug, Serialize, Deserialize)]
@@ -100,7 +100,8 @@ while True:
         print(json.dumps(result))
     except Exception as e:
         print(json.dumps({"error": str(e)}))
-"#.to_string()
+"#
+            .to_string()
         });
 
         // Write Python script to temp file
@@ -162,7 +163,8 @@ while True:
 
     /// Send command to Python
     pub fn send_command(&self, command: PythonCommand) -> Result<(), io::Error> {
-        self.command_sender.send(command)
+        self.command_sender
+            .send(command)
             .map_err(|e| io::Error::new(io::ErrorKind::Other, e.to_string()))?;
         Ok(())
     }
@@ -171,7 +173,10 @@ while True:
     pub fn receive_response(&self, timeout_ms: u64) -> Result<Option<PythonResponse>, io::Error> {
         use std::time::Duration;
 
-        match self.response_receiver.recv_timeout(Duration::from_millis(timeout_ms)) {
+        match self
+            .response_receiver
+            .recv_timeout(Duration::from_millis(timeout_ms))
+        {
             Ok(response) => Ok(Some(response)),
             Err(crossbeam::channel::RecvTimeoutError::Timeout) => Ok(None),
             Err(e) => Err(io::Error::new(io::ErrorKind::Other, e.to_string())),
@@ -186,7 +191,12 @@ while True:
         noise_config: NoiseConfig,
         num_tests: usize,
     ) -> Result<CoherenceTestResults, io::Error> {
-        self.send_command(PythonCommand::RunTest { n_qubits, temperature, noise_config, num_tests })?;
+        self.send_command(PythonCommand::RunTest {
+            n_qubits,
+            temperature,
+            noise_config,
+            num_tests,
+        })?;
 
         // Wait for response
         let start_time = std::time::Instant::now();
@@ -202,7 +212,10 @@ while True:
             }
         }
 
-        Err(io::Error::new(io::ErrorKind::TimedOut, "Timeout waiting for test results"))
+        Err(io::Error::new(
+            io::ErrorKind::TimedOut,
+            "Timeout waiting for test results",
+        ))
     }
 
     /// Close the pipe

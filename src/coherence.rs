@@ -1,6 +1,6 @@
 //! Coherence testing structures and functions
-use serde::{Serialize, Deserialize};
 use chrono::{DateTime, Utc};
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::time::Duration;
 use thiserror::Error;
@@ -63,10 +63,16 @@ impl CoherenceTestResults {
     }
 
     /// Add a measurement for a specific qubit
-    pub fn add_measurement(&mut self, qubit: usize, test_idx: usize, measurement: CoherenceMeasurement) {
+    pub fn add_measurement(
+        &mut self,
+        qubit: usize,
+        test_idx: usize,
+        measurement: CoherenceMeasurement,
+    ) {
         if qubit < self.n_qubits {
             if self.qubit_measurements[qubit].len() <= test_idx {
-                self.qubit_measurements[qubit].resize(test_idx + 1, CoherenceMeasurement::default());
+                self.qubit_measurements[qubit]
+                    .resize(test_idx + 1, CoherenceMeasurement::default());
             }
             self.qubit_measurements[qubit][test_idx] = measurement;
         }
@@ -82,7 +88,7 @@ impl CoherenceTestResults {
                 self.statistics.insert(qubit, stats);
             }
         }
-        
+
         // Calculate overall statistics
         self.overall_stats = calculate_overall_statistics(&self.statistics, &self.ghz_measurements);
     }
@@ -94,14 +100,16 @@ impl CoherenceTestResults {
 
     /// Get worst-case T2 (minimum)
     pub fn get_worst_t2(&self) -> Option<(usize, f64)> {
-        self.statistics.iter()
+        self.statistics
+            .iter()
             .map(|(&qubit, stats)| (qubit, stats.min_t2))
             .min_by(|(_, t2_a), (_, t2_b)| t2_a.partial_cmp(t2_b).unwrap())
     }
 
     /// Get best-case T2 (maximum)
     pub fn get_best_t2(&self) -> Option<(usize, f64)> {
-        self.statistics.iter()
+        self.statistics
+            .iter()
             .map(|(&qubit, stats)| (qubit, stats.max_t2))
             .max_by(|(_, t2_a), (_, t2_b)| t2_a.partial_cmp(t2_b).unwrap())
     }
@@ -118,8 +126,10 @@ impl CoherenceTestResults {
 
         for (qubit, measurements) in self.qubit_measurements.iter().enumerate() {
             for (test_idx, measurement) in measurements.iter().enumerate() {
-                csv.push_str(&format!("{},{},{:.6},{:.3}\n",
-                    qubit, test_idx, measurement.initial_fidelity, measurement.t2_estimate));
+                csv.push_str(&format!(
+                    "{},{},{:.6},{:.3}\n",
+                    qubit, test_idx, measurement.initial_fidelity, measurement.t2_estimate
+                ));
             }
         }
         csv
@@ -276,7 +286,9 @@ fn calculate_qubit_statistics(measurements: &[CoherenceMeasurement]) -> QubitSta
 
     let avg_fidelity = fidelity_values.iter().sum::<f64>() / n as f64;
     let min_fidelity = fidelity_values.iter().fold(f64::INFINITY, |a, &b| a.min(b));
-    let max_fidelity = fidelity_values.iter().fold(f64::NEG_INFINITY, |a, &b| a.max(b));
+    let max_fidelity = fidelity_values
+        .iter()
+        .fold(f64::NEG_INFINITY, |a, &b| a.max(b));
 
     QubitStatistics {
         average_t2: avg_t2,
@@ -302,16 +314,24 @@ fn calculate_overall_statistics(
     }
 
     let total_t2: f64 = qubit_stats.values().map(|stats| stats.average_t2).sum();
-    let total_fidelity: f64 = qubit_stats.values().map(|stats| stats.average_fidelity).sum();
+    let total_fidelity: f64 = qubit_stats
+        .values()
+        .map(|stats| stats.average_fidelity)
+        .sum();
 
-    let system_t2 = qubit_stats.values()
+    let system_t2 = qubit_stats
+        .values()
         .map(|stats| stats.min_t2)
         .fold(f64::INFINITY, |a, b| a.min(b));
 
     let total_measurements: usize = qubit_stats.values().map(|stats| stats.n_measurements).sum();
 
     let ghz_avg = if !ghz_measurements.is_empty() {
-        ghz_measurements.iter().map(|m| m.initial_fidelity).sum::<f64>() / ghz_measurements.len() as f64
+        ghz_measurements
+            .iter()
+            .map(|m| m.initial_fidelity)
+            .sum::<f64>()
+            / ghz_measurements.len() as f64
     } else {
         0.0
     };

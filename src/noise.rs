@@ -1,25 +1,47 @@
 //! Noise models for quantum systems
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 /// Types of quantum noise
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum NoiseModel {
     /// Thermal noise (T1 processes)
-    Thermal { temperature: f64, rates: Vec<f64> },
+    Thermal {
+        /// Temperature in Kelvin
+        temperature: f64,
+        /// Relaxation rates per qubit (Hz)
+        rates: Vec<f64>,
+    },
     /// Dephasing noise (T2 processes)
-    Dephasing { rates: Vec<f64> },
+    Dephasing {
+        /// Dephasing rates per qubit (Hz)
+        rates: Vec<f64>,
+    },
     /// Amplitude damping
-    AmplitudeDamping { rates: Vec<f64> },
+    AmplitudeDamping {
+        /// Damping rates per qubit (Hz)
+        rates: Vec<f64>,
+    },
     /// 1/f noise
-    OneOverF { strength: f64, exponent: f64 },
+    OneOverF {
+        /// Noise strength coefficient
+        strength: f64,
+        /// Frequency exponent (typically 1.0)
+        exponent: f64,
+    },
     /// Composite noise model
-    Composite { models: Vec<NoiseModel> },
+    Composite {
+        /// Collection of noise models to apply
+        models: Vec<NoiseModel>,
+    },
 }
 
 impl NoiseModel {
     /// Create thermal noise model
     pub fn thermal(temperature: f64) -> Self {
-        NoiseModel::Thermal { temperature, rates: Vec::new() }
+        NoiseModel::Thermal {
+            temperature,
+            rates: Vec::new(),
+        }
     }
 
     /// Create thermal noise with specific rates
@@ -57,13 +79,25 @@ impl NoiseModel {
     pub fn total_rate(&self) -> f64 {
         match self {
             NoiseModel::Thermal { rates, .. } => {
-                if rates.is_empty() { 1.0 } else { rates.iter().sum::<f64>() / rates.len() as f64 }
+                if rates.is_empty() {
+                    1.0
+                } else {
+                    rates.iter().sum::<f64>() / rates.len() as f64
+                }
             }
             NoiseModel::Dephasing { rates } => {
-                if rates.is_empty() { 0.5 } else { rates.iter().sum::<f64>() / rates.len() as f64 }
+                if rates.is_empty() {
+                    0.5
+                } else {
+                    rates.iter().sum::<f64>() / rates.len() as f64
+                }
             }
             NoiseModel::AmplitudeDamping { rates } => {
-                if rates.is_empty() { 0.3 } else { rates.iter().sum::<f64>() / rates.len() as f64 }
+                if rates.is_empty() {
+                    0.3
+                } else {
+                    rates.iter().sum::<f64>() / rates.len() as f64
+                }
             }
             NoiseModel::OneOverF { strength, .. } => *strength,
             NoiseModel::Composite { models } => models.iter().map(|m| m.total_rate()).sum(),

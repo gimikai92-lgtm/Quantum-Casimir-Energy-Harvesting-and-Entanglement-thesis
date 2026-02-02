@@ -1,6 +1,6 @@
 //! Main binary for quantum coherence testing
-use quantum_coherence::{QuantumSystem, NoiseModel, test_superposition_preservation};
 use clap::{Parser, Subcommand};
+use quantum_coherence::{test_superposition_preservation, NoiseModel, QuantumSystem};
 use std::fs;
 use std::time::Instant;
 
@@ -21,13 +21,13 @@ struct Cli {
 enum Commands {
     /// Run local coherence test
     Run {
-        #[arg(short, long, default_value_t = 5)]
+        #[arg(short = 'n', long, default_value_t = 5)]
         qubits: usize,
 
-        #[arg(short, long, default_value_t = 0.02)]
+        #[arg(short = 'T', long, default_value_t = 0.02)]
         temperature: f64,
 
-        #[arg(short, long, default_value_t = 100)]
+        #[arg(short = 't', long, default_value_t = 100)]
         tests: usize,
 
         #[arg(long, default_value_t = false)]
@@ -36,10 +36,10 @@ enum Commands {
 
     /// Benchmark different configurations
     Benchmark {
-        #[arg(short, long, default_value_t = 1)]
+        #[arg(short = 'i', long, default_value_t = 1)]
         min_qubits: usize,
 
-        #[arg(short, long, default_value_t = 10)]
+        #[arg(short = 'a', long, default_value_t = 10)]
         max_qubits: usize,
 
         #[arg(short, long, default_value_t = 1)]
@@ -66,10 +66,19 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .init();
 
     match cli.command {
-        Commands::Run { qubits, temperature, tests, comprehensive_noise } => {
+        Commands::Run {
+            qubits,
+            temperature,
+            tests,
+            comprehensive_noise,
+        } => {
             run_local_test(qubits, temperature, tests, comprehensive_noise, cli.output)?;
         }
-        Commands::Benchmark { min_qubits, max_qubits, step } => {
+        Commands::Benchmark {
+            min_qubits,
+            max_qubits,
+            step,
+        } => {
             run_benchmark(min_qubits, max_qubits, step, cli.output)?;
         }
         Commands::GenerateBindings => {
@@ -89,7 +98,11 @@ fn run_local_test(
 ) -> Result<(), Box<dyn std::error::Error>> {
     println!("Running local coherence test...");
     println!(" Qubits: {}", n_qubits);
-    println!(" Temperature: {} K ({} mK)", temperature, temperature * 1000.0);
+    println!(
+        " Temperature: {} K ({} mK)",
+        temperature,
+        temperature * 1000.0
+    );
     println!(" Tests: {}", num_tests);
 
     let start_time = Instant::now();
@@ -99,7 +112,10 @@ fn run_local_test(
     let noise_models = if comprehensive_noise {
         vec![NoiseModel::comprehensive()]
     } else {
-        vec![NoiseModel::thermal(temperature), NoiseModel::dephasing(vec![])]
+        vec![
+            NoiseModel::thermal(temperature),
+            NoiseModel::dephasing(vec![]),
+        ]
     };
 
     let results = test_superposition_preservation(&mut system, noise_models, num_tests)?;
@@ -120,9 +136,15 @@ fn run_benchmark(
     step: usize,
     output: Option<String>,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    println!("Running benchmark from {} to {} qubits (step: {})", min_qubits, max_qubits, step);
+    println!(
+        "Running benchmark from {} to {} qubits (step: {})",
+        min_qubits, max_qubits, step
+    );
     println!("{:-<60}", "");
-    println!("{:>10} {:>12} {:>12} {:>12} {:>12}", "Qubits", "Time (ms)", "Avg T2 (μs)", "Min T2 (μs)", "Fidelity");
+    println!(
+        "{:>10} {:>12} {:>12} {:>12} {:>12}",
+        "Qubits", "Time (ms)", "Avg T2 (μs)", "Min T2 (μs)", "Fidelity"
+    );
     println!("{:-<60}", "");
 
     let mut benchmark_results = Vec::new();
@@ -140,8 +162,14 @@ fn run_benchmark(
         let system_t2 = results.overall_stats.system_t2;
         let avg_fidelity = results.overall_stats.average_fidelity;
 
-        println!("{:10} {:12.2} {:12.1} {:12.1} {:12.4}",
-            n_qubits, duration.as_millis(), avg_t2, system_t2, avg_fidelity);
+        println!(
+            "{:10} {:12.2} {:12.1} {:12.1} {:12.4}",
+            n_qubits,
+            duration.as_millis(),
+            avg_t2,
+            system_t2,
+            avg_fidelity
+        );
 
         benchmark_results.push((n_qubits, duration, avg_t2, system_t2, avg_fidelity));
     }
@@ -157,10 +185,16 @@ fn run_benchmark(
         csv.push_str("qubits,duration_ms,avg_t2_us,system_t2_us,avg_fidelity\n");
 
         for (n_qubits, duration, avg_t2, system_t2, avg_fidelity) in benchmark_results {
-            csv.push_str(&format!("{},{},{},{},{}\n",
-                n_qubits, duration.as_millis(), avg_t2, system_t2, avg_fidelity));
+            csv.push_str(&format!(
+                "{},{},{},{},{}\n",
+                n_qubits,
+                duration.as_millis(),
+                avg_t2,
+                system_t2,
+                avg_fidelity
+            ));
         }
-        
+
         fs::write(csv_path, csv)?;
         println!("\nBenchmark results saved to CSV file.");
     }
@@ -172,7 +206,7 @@ fn generate_example_files() -> Result<(), Box<dyn std::error::Error>> {
     println!("Generating example files...");
 
     fs::create_dir_all("examples")?;
-    
+
     let example = r#"//! Example usage of quantum coherence testing framework
 use quantum_coherence::{QuantumSystem, NoiseModel, test_superposition_preservation};
 
@@ -212,22 +246,39 @@ fn print_results(results: &quantum_coherence::CoherenceTestResults, duration: st
     println!("\n=== COHERENCE TEST RESULTS ===");
     println!("Test Duration: {:.2?}", duration);
     println!("Number of Qubits: {}", results.n_qubits);
-    println!("Total Measurements: {}", results.overall_stats.total_measurements);
+    println!(
+        "Total Measurements: {}",
+        results.overall_stats.total_measurements
+    );
     println!("\nOverall Statistics:");
     println!(" Average T₂: {:.1} μs", results.overall_stats.average_t2);
-    println!(" System T₂ (worst): {:.1} μs", results.overall_stats.system_t2);
-    println!(" Average Fidelity: {:.6}", results.overall_stats.average_fidelity);
-    println!(" Average GHZ Fidelity: {:.6}", results.overall_stats.average_ghz_fidelity);
+    println!(
+        " System T₂ (worst): {:.1} μs",
+        results.overall_stats.system_t2
+    );
+    println!(
+        " Average Fidelity: {:.6}",
+        results.overall_stats.average_fidelity
+    );
+    println!(
+        " Average GHZ Fidelity: {:.6}",
+        results.overall_stats.average_ghz_fidelity
+    );
 
     println!("\nPer-Qubit Statistics:");
     println!("{:-<60}", "");
-    println!("{:>6} {:>10} {:>10} {:>10} {:>10}", "Qubit", "Avg T₂", "Min T₂", "Max T₂", "Fidelity");
+    println!(
+        "{:>6} {:>10} {:>10} {:>10} {:>10}",
+        "Qubit", "Avg T₂", "Min T₂", "Max T₂", "Fidelity"
+    );
     println!("{:-<60}", "");
 
     for qubit in 0..results.n_qubits {
         if let Some(stats) = results.statistics.get(&qubit) {
-            println!("{:6} {:10.1} {:10.1} {:10.1} {:10.6}",
-                qubit, stats.average_t2, stats.min_t2, stats.max_t2, stats.average_fidelity);
+            println!(
+                "{:6} {:10.1} {:10.1} {:10.1} {:10.6}",
+                qubit, stats.average_t2, stats.min_t2, stats.max_t2, stats.average_fidelity
+            );
         }
     }
 
@@ -250,7 +301,10 @@ fn print_results(results: &quantum_coherence::CoherenceTestResults, duration: st
     }
 }
 
-fn save_results(results: &quantum_coherence::CoherenceTestResults, output_path: &str) -> Result<(), Box<dyn std::error::Error>> {
+fn save_results(
+    results: &quantum_coherence::CoherenceTestResults,
+    output_path: &str,
+) -> Result<(), Box<dyn std::error::Error>> {
     let json = results.to_json()?;
     let json_path = if output_path.ends_with(".json") {
         output_path.to_string()
@@ -271,4 +325,3 @@ fn save_results(results: &quantum_coherence::CoherenceTestResults, output_path: 
 
     Ok(())
 }
-

@@ -10,7 +10,7 @@
 //! - `plotting`: Enable plotting and visualization
 //! - `parallel`: Enable parallel processing
 //! - `full`: Enable all features
-//! 
+//!
 //! # Examples
 //!
 //! ```rust
@@ -36,14 +36,14 @@
 #![allow(clippy::type_complexity)]
 
 // Re-exports
-pub use crate::quantum::*;
 pub use crate::coherence::*;
 pub use crate::noise::*;
-pub use crate::testing::*;
 pub use crate::pipes::*;
+pub use crate::quantum::*;
+pub use crate::testing::*;
 
-pub mod quantum;
 pub mod coherence;
 pub mod noise;
-pub mod testing;
 pub mod pipes;
+pub mod quantum;
+pub mod testing;

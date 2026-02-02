@@ -6,4 +6,3 @@
 fn cli_tests_placeholder() {
     assert!(true);
 }
-
