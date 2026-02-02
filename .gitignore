@@ -196,6 +196,31 @@ coverage.xml
 .dmypy.json
 dmypy.json
 
+# Rust/Cargo build artifacts (REMOVE - not a Rust project)
+Cargo.toml
+Cargo.lock
+target/
+src/
+
+# Docker (REMOVE - not containerized)
+Dockerfile
+
+# Development environments
+.venv/
+.env.local
+venv/
+env/
+.venv
+
+# Python virtual environments and test caches
+.pytest_cache/
+.tox/
+
+# GitHub workflows (REMOVE - thesis only, no CI/CD)
+.github/
+scripts/
+tests/
+
 # Keep essential repository files
 !.gitignore
 !.vscode/
