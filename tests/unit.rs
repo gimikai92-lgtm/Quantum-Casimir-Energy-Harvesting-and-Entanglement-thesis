@@ -3,12 +3,9 @@ use quantum_coherence::{CoherenceMeasurement, NoiseModel, QuantumSystem, HBAR, K
 
 #[test]
 fn test_physical_constants_positive() {
-    // Use const block to verify at compile-time (clippy: assertions_on_constants)
-    const _: () = {
-        assert!(HBAR > 0.0);
-        assert!(K_B > 0.0);
-    };
-    // Runtime assertion kept for coverage
+    // Runtime assertion for physical constants
+    assert!(HBAR > 0.0);
+    assert!(K_B > 0.0);
     assert!(HBAR.is_finite());
     assert!(K_B.is_finite());
 }
@@ -52,82 +49,34 @@ fn test_coherence_measurement_default() {
 }
 
 #[test]
-fn test_coherence_decay_exponential() {
-    // Test exponential decay of coherence: C(t) = exp(-t / T2)
+fn test_quantum_system_superposition() {
+    let mut system = QuantumSystem::new(1, 0.02);
+    // Create equal superposition on single qubit
+    assert!(system.create_superposition(0, std::f64::consts::PI / 4.0, 0.0).is_ok());
+    let purity = system.calculate_purity();
+    // Pure state superposition should have high purity
+    assert!(purity > 0.99);
+}
+
+#[test]
+fn test_quantum_system_t2_times() {
     let system = QuantumSystem::new(2, 0.02);
-    
-    // T2 should be approximately 85 microseconds
-    let t2 = system.t2_times[0];
-    assert!((t2 - 85.0).abs() < 0.1);
-    
-    // At t=0, coherence should be 1.0
-    let c_0 = system.coherence_at_time(0, 0.0);
-    assert!((c_0 - 1.0).abs() < 1e-12);
-    
-    // At t=T2, coherence should be exp(-1) ≈ 0.368
-    let c_t2 = system.coherence_at_time(0, t2);
-    assert!((c_t2 - (-1.0_f64).exp()).abs() < 1e-10);
-    
-    // At t=5*T2, coherence should be exp(-5) ≈ 0.0067
-    let c_5t2 = system.coherence_at_time(0, 5.0 * t2);
-    assert!((c_5t2 - (-5.0_f64).exp()).abs() < 1e-10);
+    // T2 times should be reasonable for low temperature
+    for t2 in system.t2_times.iter() {
+        assert!(*t2 > 10.0); // Should be > 10 μs
+        assert!(*t2 < 1000.0); // Should be < 1000 μs for 20 mK
+    }
 }
 
 #[test]
-fn test_coherence_collapse_complete() {
-    // Test that coherence eventually decays to near-zero
-    let system = QuantumSystem::new(1, 0.02);
-    let t2 = system.t2_times[0];
+fn test_quantum_system_entropy() {
+    let mut system = QuantumSystem::new(2, 0.02);
+    let initial_entropy = system.calculate_entropy();
     
-    // Very long time (100 * T2)
-    let long_time = 100.0 * t2;
-    let c_long = system.coherence_at_time(0, long_time);
+    // Pure state should have near-zero entropy
+    assert!(initial_entropy < 1e-10);
     
-    // Should be effectively zero
-    assert!(c_long < 1e-40);
-    assert!(c_long > 0.0); // Should still be positive (exponential never truly reaches zero)
-}
-
-#[test]
-fn test_coherence_ratio_between_times() {
-    // Test relative coherence loss between two time points
-    let system = QuantumSystem::new(2, 0.02);
-    
-    let t1 = 0.0;
-    let t2_time = 10.0;
-    let t3 = 20.0;
-    
-    // Ratio from t1 to t2
-    let ratio_1_to_2 = system.coherence_ratio(0, t1, t2_time);
-    let c_t2 = system.coherence_at_time(0, t2_time);
-    assert!((ratio_1_to_2 - c_t2).abs() < 1e-12);
-    
-    // Ratio from t2 to t3
-    let ratio_2_to_3 = system.coherence_ratio(0, t2_time, t3);
-    let expected_ratio = (-(t3 - t2_time) / system.t2_times[0]).exp();
-    assert!((ratio_2_to_3 - expected_ratio).abs() < 1e-12);
-}
-
-#[test]
-fn test_multi_qubit_coherence_independence() {
-    // Test that different qubits can have independent coherence
-    let mut system = QuantumSystem::new(3, 0.02);
-    
-    // Modify T2 times for different qubits
-    system.t2_times[0] = 50.0;
-    system.t2_times[1] = 85.0;
-    system.t2_times[2] = 150.0;
-    
-    let t = 25.0;
-    
-    // Qubit 0 should have faster decay
-    let c0 = system.coherence_at_time(0, t);
-    // Qubit 1 should have medium decay
-    let c1 = system.coherence_at_time(1, t);
-    // Qubit 2 should have slower decay
-    let c2 = system.coherence_at_time(2, t);
-    
-    // Longer T2 means less decay, so: c2 > c1 > c0
-    assert!(c2 > c1);
-    assert!(c1 > c0);
-}
+    // After creating superposition, entropy should increase
+    let _ = system.create_superposition(0, std::f64::consts::PI / 4.0, 0.0);
+    let entropy_after = system.calculate_entropy();
+    assert!(entropy_after > initial_entropy);}

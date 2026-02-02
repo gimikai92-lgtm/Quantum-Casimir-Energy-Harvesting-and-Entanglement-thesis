@@ -42,6 +42,64 @@ Run the example binary:
 cargo run --bin coherence-test
 ```
 
+Serve mode (TCP JSON responses / optional TLS)
+---------------------------------------------
+
+The example binary can run as a lightweight server that returns JSON-formatted status information.
+
+- Start serve mode (binds to localhost by default):
+
+```bash
+cargo run --bin coherence-test -- --serve
+```
+
+- Bind to all interfaces (0.0.0.0):
+
+```bash
+cargo run --bin coherence-test -- --serve --bind-all
+```
+
+- Use an explicit port (or set `PORT` env):
+
+```bash
+PORT=7878 cargo run --bin coherence-test -- --serve
+```
+
+- Enable TLS (requires `cert.pem` and `key.pem` or set `TLS_CERT`/`TLS_KEY`):
+
+```bash
+# environment-driven TLS
+TLS_CERT=./cert.pem TLS_KEY=./key.pem SERVE_TLS=1 PORT=7878 SERVE=1 cargo run --bin coherence-test
+
+# or using flags
+cargo run --bin coherence-test -- --serve --tls --bind-all
+```
+
+The server returns a single JSON object per TCP connection, for example:
+
+```json
+{
+  "service": "quantum-coherence-test",
+  "n_qubits": 2,
+  "t2_times": [85.0, 85.0]
+}
+```
+
+TLS certificate/key generation (development)
+------------------------------------------
+
+For development you can generate a self-signed certificate with OpenSSL:
+
+```bash
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout key.pem -out cert.pem -subj "/CN=localhost"
+```
+
+Notes
+-----
+- The serve mode is intentionally minimal (JSON-over-TCP). If you need a full HTTP/HTTPS server, I can add `hyper`/`warp` integration.
+- Defaults: binds `127.0.0.1` and uses `cert.pem`/`key.pem` when TLS is enabled unless `TLS_CERT`/`TLS_KEY` are set.
+
+
 Project structure
 
 - `Cargo.toml` - Rust manifest for the crate
