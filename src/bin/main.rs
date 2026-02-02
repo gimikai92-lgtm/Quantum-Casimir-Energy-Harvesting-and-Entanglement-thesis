@@ -44,6 +44,9 @@ enum Commands {
 
         #[arg(short, long, default_value_t = 1)]
         step: usize,
+
+        #[arg(short = 't', long, default_value_t = 10)]
+        tests: usize,
     },
 
     /// Generate example files
@@ -78,8 +81,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             min_qubits,
             max_qubits,
             step,
+            tests,
         } => {
-            run_benchmark(min_qubits, max_qubits, step, cli.output)?;
+            run_benchmark(min_qubits, max_qubits, step, tests, cli.output)?;
         }
         Commands::GenerateBindings => {
             generate_example_files()?;
@@ -134,11 +138,12 @@ fn run_benchmark(
     min_qubits: usize,
     max_qubits: usize,
     step: usize,
+    num_tests: usize,
     output: Option<String>,
 ) -> Result<(), Box<dyn std::error::Error>> {
     println!(
-        "Running benchmark from {} to {} qubits (step: {})",
-        min_qubits, max_qubits, step
+        "Running benchmark from {} to {} qubits (step: {}, tests: {})",
+        min_qubits, max_qubits, step, num_tests
     );
     println!("{:-<60}", "");
     println!(
@@ -155,7 +160,7 @@ fn run_benchmark(
         let mut system = QuantumSystem::new(n_qubits, 0.02);
         let noise_models = vec![NoiseModel::comprehensive()];
 
-        let results = test_superposition_preservation(&mut system, noise_models, 100)?;
+        let results = test_superposition_preservation(&mut system, noise_models, num_tests)?;
         let duration = start_time.elapsed();
 
         let avg_t2 = results.overall_stats.average_t2;
