@@ -19,10 +19,13 @@ This thesis presents a comprehensive framework for **energy-autonomous quantum c
 ```
 ├── chapters/                 # 10 thesis chapters
 ├── appendices/              # Mathematical derivations & protocols
-├── code/                    # Simulations and algorithms
+├── code/                    # Python simulations and algorithms
 ├── data/                    # Experimental measurements
-└── figures/                 # Visualizations and charts
+├── figures/                 # Visualizations and charts
+└── src/                     # Rust implementation (quantum-coherence-test)
 ```
+
+**Note:** This repository includes both Python simulations (in `code/`) and a Rust implementation (`src/`, `Cargo.toml`) of the quantum coherence testing framework. See [SERVER.md](SERVER.md) for Rust server documentation.
 
 ## 📖 Citation
 
