@@ -40,7 +40,12 @@ fn test_t2_t1_coherence_decay() {
     let ratio = coh2 / coh1;
     let expected_ratio = (-(t2 - t1) / t2_time).exp();
     let tol = 1e-12;
-    assert!((ratio - expected_ratio).abs() < tol, "ratio {} != expected {}", ratio, expected_ratio);
+    assert!(
+        (ratio - expected_ratio).abs() < tol,
+        "ratio {} != expected {}",
+        ratio,
+        expected_ratio
+    );
 }
 
 #[test]
@@ -53,5 +58,10 @@ fn test_coherence_at_time_method_matches_formula() {
     let expected = (-(t) / t2).exp();
     let got = system.coherence_at_time(qubit, t);
     let tol = 1e-12;
-    assert!((got - expected).abs() < tol, "got {} expected {}", got, expected);
+    assert!(
+        (got - expected).abs() < tol,
+        "got {} expected {}",
+        got,
+        expected
+    );
 }

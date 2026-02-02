@@ -1,7 +1,5 @@
 // Lightweight unit tests for core functionality
-use quantum_coherence::{
-    QuantumSystem, NoiseModel, CoherenceMeasurement, HBAR, K_B,
-};
+use quantum_coherence::{CoherenceMeasurement, NoiseModel, QuantumSystem, HBAR, K_B};
 
 #[test]
 fn test_physical_constants_positive() {

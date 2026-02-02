@@ -6,7 +6,11 @@ fn validate_required_secrets() {
     // If REQUIRE_SECRETS=1, fail fast when common secrets are missing
     let require = env::var("REQUIRE_SECRETS").unwrap_or_default();
     if require == "1" {
-        let keys = ["SERVICE_API_KEY", "S3_ACCESS_KEY_ID", "S3_SECRET_ACCESS_KEY"];
+        let keys = [
+            "SERVICE_API_KEY",
+            "S3_ACCESS_KEY_ID",
+            "S3_SECRET_ACCESS_KEY",
+        ];
         let mut missing = Vec::new();
         for k in keys.iter() {
             if env::var(k).ok().filter(|v| !v.is_empty()).is_none() {

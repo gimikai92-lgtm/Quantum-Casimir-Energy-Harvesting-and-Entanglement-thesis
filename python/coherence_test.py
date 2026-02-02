@@ -1,23 +1,23 @@
 #!/usr/bin/env python3
-"""
-Python side of the quantum coherence testing pipe.
+"""Python side of the quantum coherence testing pipe.
 Communicates with Rust via stdin/stdout JSON messages.
 This file mirrors the original project script with a mock fallback when the Rust
 extension is not available.
 """
-import sys
 import json
+import sys
 import time
-import numpy as np
-from typing import Dict, List, Any, Optional
 import traceback
+from typing import Any
+
+import numpy as np
 
 # Try to import the Rust module
 try:
     import quantum_coherence
     # Check if the Rust module exposes the full QuantumSystem class
     # (our minimal binding only exposes helper functions, not the class)
-    RUST_AVAILABLE = hasattr(quantum_coherence, 'QuantumSystem')
+    RUST_AVAILABLE = hasattr(quantum_coherence, "QuantumSystem")
 except ImportError:
     print("Warning: Rust module not found. Using mock implementation.", file=sys.stderr)
     RUST_AVAILABLE = False
@@ -25,6 +25,7 @@ except ImportError:
 
 class MockQuantumSystem:
     """Mock implementation when Rust module is not available"""
+
     def __init__(self, n_qubits: int, temperature: float):
         self.n_qubits = n_qubits
         self.temperature = temperature
@@ -32,7 +33,6 @@ class MockQuantumSystem:
 
     def create_superposition(self, qubit: int, theta: float, phi: float):
         """Mock create superposition"""
-        pass
 
     def measure_superposition_fidelity(self, qubit: int) -> float:
         """Mock measure fidelity"""
@@ -42,7 +42,6 @@ class MockQuantumSystem:
 
     def apply_noise(self, duration: float):
         """Mock apply noise"""
-        pass
 
     def calculate_purity(self) -> float:
         """Mock calculate purity"""
@@ -51,12 +50,13 @@ class MockQuantumSystem:
 
 class QuantumCoherenceTest:
     """Main test class for Python side"""
+
     def __init__(self):
         self.system = None
         self.results = []
 
     def run_test(self, n_qubits: int, temperature: float,
-                 noise_config: Dict[str, Any], num_tests: int) -> Dict[str, Any]:
+                 noise_config: dict[str, Any], num_tests: int) -> dict[str, Any]:
         """Run coherence test"""
         if RUST_AVAILABLE:
             # Use Rust implementation
@@ -73,10 +73,10 @@ class QuantumCoherenceTest:
                     fidelity_t = test_system.measure_superposition_fidelity(qubit)
                     fidelities.append(fidelity_t)
                 self.results.append({
-                    'qubit': qubit,
-                    'initial_fidelity': fidelity,
-                    'fidelities': fidelities,
-                    't2': self.system.t2_times[qubit],
+                    "qubit": qubit,
+                    "initial_fidelity": fidelity,
+                    "fidelities": fidelities,
+                    "t2": self.system.t2_times[qubit],
                 })
         else:
             # Use mock implementation
@@ -90,30 +90,30 @@ class QuantumCoherenceTest:
                     fidelity_t = self.system.measure_superposition_fidelity(qubit)
                     fidelities.append(fidelity_t)
                 self.results.append({
-                    'qubit': qubit,
-                    'initial_fidelity': fidelity,
-                    'fidelities': fidelities,
-                    't2': self.system.t2_times[qubit],
+                    "qubit": qubit,
+                    "initial_fidelity": fidelity,
+                    "fidelities": fidelities,
+                    "t2": self.system.t2_times[qubit],
                 })
         return self.compile_results()
 
-    def compile_results(self) -> Dict[str, Any]:
+    def compile_results(self) -> dict[str, Any]:
         """Compile results into dictionary"""
         if not self.results:
             return {}
-        avg_fidelity = np.mean([r['initial_fidelity'] for r in self.results])
-        avg_t2 = np.mean([r['t2'] for r in self.results])
-        min_t2 = min([r['t2'] for r in self.results])
-        max_t2 = max([r['t2'] for r in self.results])
+        avg_fidelity = np.mean([r["initial_fidelity"] for r in self.results])
+        avg_t2 = np.mean([r["t2"] for r in self.results])
+        min_t2 = min([r["t2"] for r in self.results])
+        max_t2 = max([r["t2"] for r in self.results])
         return {
-            'n_qubits': self.system.n_qubits if self.system else 0,
-            'temperature': self.system.temperature if self.system else 0.0,
-            'average_fidelity': float(avg_fidelity),
-            'average_t2': float(avg_t2),
-            'min_t2': float(min_t2),
-            'max_t2': float(max_t2),
-            'qubit_results': self.results,
-            'timestamp': time.time(),
+            "n_qubits": self.system.n_qubits if self.system else 0,
+            "temperature": self.system.temperature if self.system else 0.0,
+            "average_fidelity": float(avg_fidelity),
+            "average_t2": float(avg_t2),
+            "min_t2": float(min_t2),
+            "max_t2": float(max_t2),
+            "qubit_results": self.results,
+            "timestamp": time.time(),
         }
 
 
@@ -129,64 +129,64 @@ def main():
                 command = json.loads(line)
             except json.JSONDecodeError as e:
                 response = {
-                    'type': 'error',
-                    'message': f'JSON decode error: {str(e)}'
+                    "type": "error",
+                    "message": f"JSON decode error: {e!s}",
                 }
                 print(json.dumps(response))
                 sys.stdout.flush()
                 continue
-            if command.get('command') == 'run_test':
+            if command.get("command") == "run_test":
                 results = test.run_test(
-                    n_qubits=command.get('n_qubits', 1),
-                    temperature=command.get('temperature', 0.02),
-                    noise_config=command.get('noise_config', {}),
-                    num_tests=command.get('num_tests', 1),
+                    n_qubits=command.get("n_qubits", 1),
+                    temperature=command.get("temperature", 0.02),
+                    noise_config=command.get("noise_config", {}),
+                    num_tests=command.get("num_tests", 1),
                 )
                 response = {
-                    'type': 'test_results',
-                    'results': results,
+                    "type": "test_results",
+                    "results": results,
                 }
                 print(json.dumps(response))
                 sys.stdout.flush()
-            elif command.get('command') == 'create_superposition':
+            elif command.get("command") == "create_superposition":
                 if test.system:
                     test.system.create_superposition(
-                        qubit=command['qubit'],
-                        theta=command['theta'],
-                        phi=command['phi'],
+                        qubit=command["qubit"],
+                        theta=command["theta"],
+                        phi=command["phi"],
                     )
-                response = {'type': 'ack'}
+                response = {"type": "ack"}
                 print(json.dumps(response))
                 sys.stdout.flush()
-            elif command.get('command') == 'measure_fidelity':
+            elif command.get("command") == "measure_fidelity":
                 fidelity = 0.0
                 if test.system:
-                    fidelity = test.system.measure_superposition_fidelity(command['qubit'])
+                    fidelity = test.system.measure_superposition_fidelity(command["qubit"])
                 response = {
-                    'type': 'fidelity',
-                    'fidelity': fidelity,
+                    "type": "fidelity",
+                    "fidelity": fidelity,
                 }
                 print(json.dumps(response))
                 sys.stdout.flush()
-            elif command.get('command') == 'get_results':
+            elif command.get("command") == "get_results":
                 results = test.compile_results()
                 response = {
-                    'type': 'test_results',
-                    'results': results,
+                    "type": "test_results",
+                    "results": results,
                 }
                 print(json.dumps(response))
                 sys.stdout.flush()
-            elif command.get('command') == 'stop':
+            elif command.get("command") == "stop":
                 break
             else:
                 response = {
-                    'type': 'error',
-                    'message': f'Unknown command: {command.get("command")}'
+                    "type": "error",
+                    "message": f'Unknown command: {command.get("command")}',
                 }
                 print(json.dumps(response))
                 sys.stdout.flush()
     except Exception as e:
-        response = {'type': 'error', 'message': f'Error processing command: {str(e)}', 'traceback': traceback.format_exc()}
+        response = {"type": "error", "message": f"Error processing command: {e!s}", "traceback": traceback.format_exc()}
         print(json.dumps(response))
         sys.stdout.flush()
     except KeyboardInterrupt:

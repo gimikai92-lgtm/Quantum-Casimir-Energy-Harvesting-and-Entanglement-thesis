@@ -1,7 +1,7 @@
 //! Minimal quantum coherence crate for tests
+use anyhow::Result;
 use nalgebra::DMatrix;
 use num_complex::Complex64;
-use anyhow::Result;
 
 /// Physics constants
 pub const HBAR: f64 = 1.054571817e-34;
@@ -141,7 +141,12 @@ mod python_bindings {
 
     /// Return coherence at time t for a newly created system with `n_qubits` at `temperature`.
     #[pyfunction]
-    fn coherence_at_time_py(n_qubits: usize, temperature: f64, qubit: usize, t: f64) -> PyResult<f64> {
+    fn coherence_at_time_py(
+        n_qubits: usize,
+        temperature: f64,
+        qubit: usize,
+        t: f64,
+    ) -> PyResult<f64> {
         let sys = QuantumSystem::new(n_qubits, temperature);
         Ok(sys.coherence_at_time(qubit, t))
     }
@@ -149,7 +154,13 @@ mod python_bindings {
     /// Return coherence ratio between two times t1 and t2 using the T2 for `qubit`.
     /// Equivalent to exp(-(t2 - t1) / T2).
     #[pyfunction]
-    fn coherence_ratio_py(n_qubits: usize, temperature: f64, qubit: usize, t1: f64, t2: f64) -> PyResult<f64> {
+    fn coherence_ratio_py(
+        n_qubits: usize,
+        temperature: f64,
+        qubit: usize,
+        t1: f64,
+        t2: f64,
+    ) -> PyResult<f64> {
         let sys = QuantumSystem::new(n_qubits, temperature);
         Ok(sys.coherence_ratio(qubit, t1, t2))
     }
