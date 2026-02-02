@@ -19,7 +19,7 @@ This thesis presents a comprehensive framework for **energy-autonomous quantum c
 ```
 ├── chapters/                 # 10 thesis chapters
 ├── appendices/              # Mathematical derivations & protocols
-├── code/                    # Python simulations and algorithms
+├── code/                    # Simulations and algorithms
 ├── data/                    # Experimental measurements
 ├── figures/                 # Visualizations and charts
 └── src/                     # Rust implementation (quantum-coherence-test)
