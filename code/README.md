@@ -14,7 +14,7 @@ This directory contains all computational code, simulations, and algorithms rela
 
 ```
 numpy>=1.21.0
-scipy>=1.7.0
+scipy>=1.8.0
 matplotlib>=3.5.0
 jupyter>=1.0.0
 ```
