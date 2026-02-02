@@ -10,16 +10,18 @@ authors:
   - family-names: "Garcia"
     given-names: "Rolando M"
     affiliation: "Department of Quantum Physics"
-    orcid: "https://orcid.org/XXXX-XXXX-XXXX-XXXX"
+    # orcid: "https://orcid.org/XXXX-XXXX-XXXX-XXXX"  # Optional: Add if available
 date-released: 2026-02-01
 version: 1.0.0
 identifiers:
-  - type: doi
-    value: "10.5281/zenodo.XXXXXXXXX"
+  # Zenodo DOI - to be added after registration (see ZENODO_CHECKLIST.md)
+  # - type: doi
+  #   value: "10.5281/zenodo.XXXXXXXXX"
   - type: url
     value: "https://github.com/gimikai92-lgtm/Quantum-Casimir-Energy-Harvesting-and-Entanglement-thesis"
 repository-code: "https://github.com/gimikai92-lgtm/Quantum-Casimir-Energy-Harvesting-and-Entanglement-thesis"
-repository-artifact: "https://zenodo.org/records/XXXXXXXXX"
+# Zenodo artifact - to be added after registration (see ZENODO_CHECKLIST.md)
+# repository-artifact: "https://zenodo.org/records/XXXXXXXXX"
 keywords:
   - "Quantum Thermodynamics"
   - "Casimir Effect"
